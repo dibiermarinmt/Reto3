@@ -6,8 +6,9 @@
 package co.usa.ciclo3.ciclo3.Modelo;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,20 +16,18 @@ import javax.persistence.Table;
  *
  * @author roll-
  */
-
 @Entity
-@Table(name="Especialidad")
-public class Especialidad implements Serializable{
+@Table(name="Cliente")
+public class Cliente implements Serializable {
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String description;
-    
-    
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "especialidad")
-    public List<Doctor> Doctores;
+    private String email;
+    private String password;
+    private Integer age;
 
     public Integer getId() {
         return id;
@@ -46,23 +45,28 @@ public class Especialidad implements Serializable{
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public List<Doctor> getDoctores() {
-        return Doctores;
+    public String getPassword() {
+        return password;
     }
 
-    public void setDoctores(List<Doctor> Doctores) {
-        this.Doctores = Doctores;
+    public void setPassword(String password) {
+        this.password = password;
     }
-    
-    
-    
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
     
 }

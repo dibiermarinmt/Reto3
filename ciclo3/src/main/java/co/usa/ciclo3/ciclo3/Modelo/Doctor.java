@@ -6,29 +6,34 @@
 package co.usa.ciclo3.ciclo3.Modelo;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author roll-
  */
-
 @Entity
-@Table(name="Especialidad")
-public class Especialidad implements Serializable{
-    
+@Table(name="Doctor")
+public class Doctor implements Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String departamen;
+    private Integer Year;
     private String name;
     private String description;
     
     
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "especialidad")
-    public List<Doctor> Doctores;
+    @ManyToOne
+    @JoinColumn(name="EspecialidadId")
+    private Especialidad especialidad;
 
     public Integer getId() {
         return id;
@@ -36,6 +41,22 @@ public class Especialidad implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDepartamen() {
+        return departamen;
+    }
+
+    public void setDepartamen(String departamen) {
+        this.departamen = departamen;
+    }
+
+    public Integer getYear() {
+        return Year;
+    }
+
+    public void setYear(Integer Year) {
+        this.Year = Year;
     }
 
     public String getName() {
@@ -53,16 +74,5 @@ public class Especialidad implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public List<Doctor> getDoctores() {
-        return Doctores;
-    }
-
-    public void setDoctores(List<Doctor> Doctores) {
-        this.Doctores = Doctores;
-    }
-    
-    
-    
     
 }
