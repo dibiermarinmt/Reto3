@@ -5,6 +5,7 @@
  */
 package co.usa.ciclo3.ciclo3.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,15 +26,17 @@ public class Doctor implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String departamen;
+    private String department;
     private Integer Year;
+    @ManyToOne
+    @JoinColumn(name="EspecialidadId")
+    @JsonIgnoreProperties("doctores")
+    private Especialidad specialty;
     private String name;
     private String description;
     
     
-    @ManyToOne
-    @JoinColumn(name="EspecialidadId")
-    private Especialidad especialidad;
+    
 
     public Integer getId() {
         return id;
@@ -43,12 +46,12 @@ public class Doctor implements Serializable{
         this.id = id;
     }
 
-    public String getDepartamen() {
-        return departamen;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setDepartamen(String departamen) {
-        this.departamen = departamen;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public Integer getYear() {
@@ -74,5 +77,14 @@ public class Doctor implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Especialidad getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Especialidad specialty) {
+        this.specialty = specialty;
+    }
+ 
     
 }

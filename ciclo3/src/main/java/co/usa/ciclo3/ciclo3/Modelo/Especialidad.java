@@ -5,6 +5,7 @@
  */
 package co.usa.ciclo3.ciclo3.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="Especialidad")
+@Table(name="specialty")
 public class Especialidad implements Serializable{
     
     @Id
@@ -27,8 +28,9 @@ public class Especialidad implements Serializable{
     private String description;
     
     
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "especialidad")
-    public List<Doctor> Doctores;
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "specialty")
+    @JsonIgnoreProperties("specialty")
+    public List<Doctor> doctores;
 
     public Integer getId() {
         return id;
@@ -55,11 +57,11 @@ public class Especialidad implements Serializable{
     }
 
     public List<Doctor> getDoctores() {
-        return Doctores;
+        return doctores;
     }
 
-    public void setDoctores(List<Doctor> Doctores) {
-        this.Doctores = Doctores;
+    public void setDoctores(List<Doctor> doctores) {
+        this.doctores = doctores;
     }
     
     
