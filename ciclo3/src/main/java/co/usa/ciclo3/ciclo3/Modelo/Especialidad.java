@@ -30,7 +30,7 @@ public class Especialidad implements Serializable{
     
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "specialty")
     @JsonIgnoreProperties("specialty")
-    public List<Doctor> doctores;
+    public List<Doctor> doctors;
 
     public Integer getId() {
         return id;
@@ -56,12 +56,12 @@ public class Especialidad implements Serializable{
         this.description = description;
     }
 
-    public List<Doctor> getDoctores() {
-        return doctores;
+    public List<Doctor> getDoctors() {
+        return doctors;
     }
 
-    public void setDoctores(List<Doctor> doctores) {
-        this.doctores = doctores;
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
     }
     
     

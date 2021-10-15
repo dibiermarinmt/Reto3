@@ -5,11 +5,14 @@
  */
 package co.usa.ciclo3.ciclo3.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,20 +20,29 @@ import javax.persistence.Table;
  * @author roll-
  */
 @Entity
-@Table(name="Cliente")
+@Table(name="message")
 public class Mensaje implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idMessage;
     private String messageText;
+    @ManyToOne
+    @JoinColumn(name="DoctorId")
+    @JsonIgnoreProperties("messages")
+    private Doctor doctor;
 
-    public Integer getId() {
-        return id;
+    @ManyToOne
+    @JoinColumn(name="clientId")
+    @JsonIgnoreProperties("messages")
+    private Cliente client;
+    
+    public Integer getIdMessage() {
+        return idMessage;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdMessage(Integer idMessage) {
+        this.idMessage = idMessage;
     }
 
     public String getMessageText() {
@@ -40,5 +52,22 @@ public class Mensaje implements Serializable{
     public void setMessageText(String messageText) {
         this.messageText = messageText;
     }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Cliente getClient() {
+        return client;
+    }
+
+    public void setClient(Cliente client) {
+        this.client = client;
+    }
+
     
 }

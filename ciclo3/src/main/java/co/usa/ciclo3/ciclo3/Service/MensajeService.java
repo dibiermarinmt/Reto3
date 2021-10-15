@@ -38,14 +38,14 @@ public class MensajeService {
     
     public Mensaje save(Mensaje s){
     
-        if(s.getId()==null){
+        if(s.getIdMessage()==null){
         
             return mensajeRepository.save(s);
             
         } 
     
         else {
-            Optional<Mensaje> paux=mensajeRepository.getMensaje(s.getId());
+            Optional<Mensaje> paux=mensajeRepository.getMensaje(s.getIdMessage());
             if(paux.toString().equals("")){
                 
                 return mensajeRepository.save(s);

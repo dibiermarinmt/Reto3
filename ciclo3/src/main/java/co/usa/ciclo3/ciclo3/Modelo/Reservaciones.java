@@ -5,12 +5,18 @@
  */
 package co.usa.ciclo3.ciclo3.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import sun.util.calendar.BaseCalendar;
 
@@ -19,21 +25,27 @@ import sun.util.calendar.BaseCalendar;
  * @author roll-
  */
 @Entity
-@Table(name="Reservaciones")
+@Table(name="reservation")
 public class Reservaciones implements Serializable{
    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idReservation;
     private Date startDate;
     private Date devolutionDate;
-
-    public Integer getId() {
-        return id;
+    
+    @ManyToOne
+    @JoinColumn(name="idCliente")
+    @JsonIgnoreProperties("reservations")
+    private Cliente client;
+    
+    
+    public Integer getIdReservation() {
+        return idReservation;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdReservation(Integer idReservation) {
+        this.idReservation = idReservation;
     }
 
     public Date getStartDate() {
@@ -51,5 +63,14 @@ public class Reservaciones implements Serializable{
     public void setDevolutionDate(Date devolutionDate) {
         this.devolutionDate = devolutionDate;
     }
+
+    public Cliente getClient() {
+        return client;
+    }
+
+    public void setClient(Cliente client) {
+        this.client = client;
+    }
+
     
 }

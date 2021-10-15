@@ -38,14 +38,14 @@ public class ClienteService {
     
     public Cliente save(Cliente s){
     
-        if(s.getId()==null){
+        if(s.getIdClient()==null){
         
             return clienteRepository.save(s);
             
         } 
     
         else {
-            Optional<Cliente> paux=clienteRepository.getCliente(s.getId());
+            Optional<Cliente> paux=clienteRepository.getCliente(s.getIdClient());
             if(paux.toString().equals("")){
                 
                 return clienteRepository.save(s);

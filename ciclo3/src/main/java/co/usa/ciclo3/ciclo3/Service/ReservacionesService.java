@@ -37,14 +37,14 @@ public class ReservacionesService {
     
     public Reservaciones save(Reservaciones s){
     
-        if(s.getId()==null){
+        if(s.getIdReservation()==null){
         
             return reservacionesRepository.save(s);
             
         } 
     
         else {
-            Optional<Reservaciones> paux=reservacionesRepository.getReservaciones(s.getId());
+            Optional<Reservaciones> paux=reservacionesRepository.getReservaciones(s.getIdReservation());
             if(paux.toString().equals("")){
                 
                 return reservacionesRepository.save(s);

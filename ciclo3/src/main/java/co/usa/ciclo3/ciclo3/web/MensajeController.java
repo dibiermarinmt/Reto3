@@ -5,8 +5,8 @@
  */
 package co.usa.ciclo3.ciclo3.web;
 
-import co.usa.ciclo3.ciclo3.Modelo.Cliente;
-import co.usa.ciclo3.ciclo3.Service.ClienteService;
+import co.usa.ciclo3.ciclo3.Modelo.Mensaje;
+import co.usa.ciclo3.ciclo3.Service.MensajeService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +32,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class MensajeController {
     
     @Autowired
-    private ClienteService clienteService;
+    private MensajeService mensajeService;
     
     
     @GetMapping("/all")
-    public List<Cliente> getCliente(){
+    public List<Mensaje> getMensaje(){
     
-        return clienteService.getAll();
+        return mensajeService.getAll();
     
     }
     
     @GetMapping("/{id}")
-    public Optional<Cliente> getClientes(@PathVariable("id")int id){
+    public Optional<Mensaje> getMensajes(@PathVariable("id")int id){
     
-    return clienteService.getCliente(id);
+    return mensajeService.getMensaje(id);
     
     
     }
@@ -53,9 +53,9 @@ public class MensajeController {
     
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente save(@RequestBody Cliente s){
+    public Mensaje save(@RequestBody Mensaje s){
     
-        return clienteService.save(s);
+        return mensajeService.save(s);
     
     }
     
