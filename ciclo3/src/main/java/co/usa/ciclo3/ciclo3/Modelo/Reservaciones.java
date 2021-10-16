@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import sun.util.calendar.BaseCalendar;
 
@@ -38,6 +39,10 @@ public class Reservaciones implements Serializable{
     @JoinColumn(name="idCliente")
     @JsonIgnoreProperties("reservations")
     private Cliente client;
+    
+    @OneToOne(cascade = {CascadeType.PERSIST},mappedBy = "reservation")
+    @JsonIgnoreProperties("reservation")
+    private Calificaciones score;
     
     
     public Integer getIdReservation() {
@@ -70,6 +75,14 @@ public class Reservaciones implements Serializable{
 
     public void setClient(Cliente client) {
         this.client = client;
+    }
+
+    public Calificaciones getScore() {
+        return score;
+    }
+
+    public void setScore(Calificaciones score) {
+        this.score = score;
     }
 
     
