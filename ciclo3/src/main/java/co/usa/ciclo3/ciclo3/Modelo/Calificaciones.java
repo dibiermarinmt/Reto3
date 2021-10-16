@@ -1,6 +1,7 @@
 
 package co.usa.ciclo3.ciclo3.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,9 @@ public class Calificaciones implements Serializable {
     private Integer idScore;
     private Integer score;
     private String message;
-    /*@OneToOne(mappedBy = "score")*/
+    
+    @OneToOne
+    @JsonIgnoreProperties("score")
     private Reservaciones reservation;
 
     public Integer getIdScore() {
