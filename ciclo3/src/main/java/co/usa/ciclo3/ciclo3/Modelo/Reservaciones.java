@@ -35,22 +35,27 @@ public class Reservaciones implements Serializable{
     private Integer idReservation;
     private Date startDate;
     private Date devolutionDate;
+    private String status = "created";
     
     @ManyToOne
-    @JoinColumn(name="idCliente")
+    @JoinColumn(name = "doctor")
     @JsonIgnoreProperties("reservations")
+    private Doctor doctor;
+    
+    @ManyToOne
+    @JoinColumn(name="client")
+    @JsonIgnoreProperties({"messages", "reservations"})
     private Cliente client;
     
-    @OneToOne
-    @JoinColumn(name="score")
-    @JsonProperty("score")
+
+    @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "reservation")
+    @JsonIgnoreProperties("reservation")
     private Calificaciones score;
     
     @ManyToOne
     @JoinColumn(name="DoctorId")
     @JsonIgnoreProperties("reservations")
     private Doctor doctor;
-    
     
     public Integer getIdReservation() {
         return idReservation;
@@ -76,6 +81,22 @@ public class Reservaciones implements Serializable{
         this.devolutionDate = devolutionDate;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     public Cliente getClient() {
         return client;
     }
@@ -92,6 +113,7 @@ public class Reservaciones implements Serializable{
         this.score = score;
     }
 
+
     public Doctor getDoctor() {
         return doctor;
     }
@@ -99,6 +121,5 @@ public class Reservaciones implements Serializable{
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
-
     
 }

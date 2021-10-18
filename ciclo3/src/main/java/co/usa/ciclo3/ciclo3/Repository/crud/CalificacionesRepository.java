@@ -16,7 +16,7 @@ public class CalificacionesRepository {
         return (List<Calificaciones>) crud.findAll();
     }
     
-    public Optional<Calificaciones> getScore(int id) {
+    public Optional<Calificaciones> getCalificaciones(int id) {
         return crud.findById(id);
     }
     

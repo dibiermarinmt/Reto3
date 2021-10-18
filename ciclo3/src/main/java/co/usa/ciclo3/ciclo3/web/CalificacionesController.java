@@ -38,18 +38,19 @@ public class CalificacionesController {
     @Autowired
     private CalificacionesService calificacionesService;
     
+    @GetMapping("/all")
+    public List<Calificaciones> getCalifiaciones() {
+        return calificacionesService.getAll();
+    }
     
-    
-    
-    
-    
+    @GetMapping("/{id}")
+    public Optional<Calificaciones> getCalificaciones(@PathVariable("idScore") int id) {
+        return calificacionesService.getCalificaciones(id);
+    }
     
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Calificaciones save(@RequestBody Calificaciones s){
-    
-        return calificacionesService.save(s);
-    
+        return calificacionesService.save(s);    
     }
-    
 }
