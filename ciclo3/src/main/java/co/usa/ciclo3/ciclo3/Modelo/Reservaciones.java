@@ -52,10 +52,7 @@ public class Reservaciones implements Serializable{
     @JsonIgnoreProperties("reservation")
     private Calificaciones score;
     
-    @ManyToOne
-    @JoinColumn(name="DoctorId")
-    @JsonIgnoreProperties("reservations")
-    private Doctor doctor;
+   
     
     public Integer getIdReservation() {
         return idReservation;
@@ -114,12 +111,5 @@ public class Reservaciones implements Serializable{
     }
 
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
     
 }
