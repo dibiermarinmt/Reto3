@@ -6,6 +6,7 @@
 package co.usa.ciclo3.ciclo3.Modelo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -40,9 +41,15 @@ public class Reservaciones implements Serializable{
     @JsonIgnoreProperties("reservations")
     private Cliente client;
     
-    @OneToOne(cascade = {CascadeType.PERSIST},mappedBy = "reservation")
-    @JsonIgnoreProperties("reservation")
+    @OneToOne
+    @JoinColumn(name="score")
+    @JsonProperty("score")
     private Calificaciones score;
+    
+    @ManyToOne
+    @JoinColumn(name="DoctorId")
+    @JsonIgnoreProperties("reservations")
+    private Doctor doctor;
     
     
     public Integer getIdReservation() {
@@ -83,6 +90,14 @@ public class Reservaciones implements Serializable{
 
     public void setScore(Calificaciones score) {
         this.score = score;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     

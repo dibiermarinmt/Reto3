@@ -31,7 +31,7 @@ public class Doctor implements Serializable{
     private Integer id;
     private String name;
     private String department;
-    private Integer Year;        
+    private Integer year;        
     private String description;
     @ManyToOne
     @JoinColumn(name="EspecialidadId")
@@ -40,6 +40,11 @@ public class Doctor implements Serializable{
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "doctor")
     @JsonIgnoreProperties("doctor")
     public List<Mensaje> messages;
+    
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "doctor")
+    @JsonIgnoreProperties("doctor")
+    public List<Reservaciones> reservations;
+    
     
 
     public Integer getId() {
@@ -59,11 +64,11 @@ public class Doctor implements Serializable{
     }
 
     public Integer getYear() {
-        return Year;
+        return year;
     }
 
     public void setYear(Integer Year) {
-        this.Year = Year;
+        this.year = Year;
     }
 
     public String getName() {
@@ -96,6 +101,14 @@ public class Doctor implements Serializable{
 
     public void setMessages(List<Mensaje> messages) {
         this.messages = messages;
+    }
+
+    public List<Reservaciones> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservaciones> reservations) {
+        this.reservations = reservations;
     }
  
     
