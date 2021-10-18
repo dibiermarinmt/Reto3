@@ -38,7 +38,7 @@ public class DoctorController {
     
     @GetMapping("/all")
     public List<Doctor> getDoctor(){
-    
+        
         return doctorService.getAll();
     
     }
