@@ -45,7 +45,11 @@ public class Reservaciones implements Serializable{
     @JsonIgnoreProperties("reservations, messages")
     private Cliente client;
     
+<<<<<<< HEAD
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "reservation")
+=======
+    @OneToOne(cascade = {CascadeType.PERSIST},mappedBy = "reservation")
+>>>>>>> 943c66e4a1ae5b070ffe272801ca7f3c523736c2
     @JsonIgnoreProperties("reservation")
     private Calificaciones score;
     
@@ -80,6 +84,14 @@ public class Reservaciones implements Serializable{
 
     public void setClient(Cliente client) {
         this.client = client;
+    }
+
+    public Calificaciones getScore() {
+        return score;
+    }
+
+    public void setScore(Calificaciones score) {
+        this.score = score;
     }
 
     

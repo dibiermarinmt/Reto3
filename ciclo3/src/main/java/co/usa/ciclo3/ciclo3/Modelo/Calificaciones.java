@@ -3,6 +3,7 @@ package co.usa.ciclo3.ciclo3.Modelo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +19,12 @@ public class Calificaciones implements Serializable {
     private Integer idScore;
     private Integer score;
     private String message;
+<<<<<<< HEAD
     
     @OneToOne
+=======
+    @OneToOne(cascade = {CascadeType.PERSIST},mappedBy = "score")
+>>>>>>> 943c66e4a1ae5b070ffe272801ca7f3c523736c2
     @JsonIgnoreProperties("score")
     private Reservaciones reservation;
 
@@ -54,5 +59,6 @@ public class Calificaciones implements Serializable {
     public void setReservation(Reservaciones reservation) {
         this.reservation = reservation;
     }
+    
     
 }
