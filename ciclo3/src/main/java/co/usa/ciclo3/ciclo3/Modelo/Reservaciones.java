@@ -36,8 +36,13 @@ public class Reservaciones implements Serializable{
     private Date devolutionDate;
     
     @ManyToOne
-    @JoinColumn(name="idCliente")
+    @JoinColumn(name = "doctor")
     @JsonIgnoreProperties("reservations")
+    private Doctor doctor;
+    
+    @ManyToOne
+    @JoinColumn(name="idCliente")
+    @JsonIgnoreProperties("reservations, messages")
     private Cliente client;
     
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "reservation")
