@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "scores")
+@Table(name = "score")
 public class Calificaciones implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Calificaciones implements Serializable {
 
     @OneToOne
     @JsonIgnoreProperties("score")
-    private Reservaciones reservation;
+    private Reservaciones reservation; 
 
     public Integer getIdScore() {
         return idScore;
@@ -55,6 +55,5 @@ public class Calificaciones implements Serializable {
     public void setReservation(Reservaciones reservation) {
         this.reservation = reservation;
     }
-    
     
 }

@@ -31,16 +31,18 @@ public class Doctor implements Serializable{
     private Integer id;
     private String name;
     private String department;
-    private Integer Year;        
+    private Integer year;        
     private String description;
     @ManyToOne
-    @JoinColumn(name="EspecialidadId")
+    @JoinColumn(name="specialty")
     @JsonIgnoreProperties("doctors")
     private Especialidad specialty;
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "doctor")
-    @JsonIgnoreProperties("doctor")
+    @JsonIgnoreProperties({"doctor", "client"})
     public List<Mensaje> messages;
-    
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "doctor")
+    @JsonIgnoreProperties("doctor")
+    private List<Reservaciones> reservations;
 
     public Integer getId() {
         return id;
@@ -48,6 +50,14 @@ public class Doctor implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDepartment() {
@@ -59,19 +69,11 @@ public class Doctor implements Serializable{
     }
 
     public Integer getYear() {
-        return Year;
+        return year;
     }
 
-    public void setYear(Integer Year) {
-        this.Year = Year;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public String getDescription() {
@@ -97,6 +99,13 @@ public class Doctor implements Serializable{
     public void setMessages(List<Mensaje> messages) {
         this.messages = messages;
     }
- 
+
+    public List<Reservaciones> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservaciones> reservations) {
+        this.reservations = reservations;
+    }
     
 }

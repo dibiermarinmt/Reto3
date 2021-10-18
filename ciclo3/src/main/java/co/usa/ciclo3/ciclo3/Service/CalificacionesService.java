@@ -33,7 +33,7 @@ public class CalificacionesService {
     
     public Optional<Calificaciones> getCalificaciones(int id){
         
-        return calificacionesRepository.getScore(id);
+        return calificacionesRepository.getCalificaciones(id);
         
     }
     
@@ -46,7 +46,7 @@ public class CalificacionesService {
         } 
     
         else {
-            Optional<Calificaciones> paux=calificacionesRepository.getScore(s.getIdScore());
+            Optional<Calificaciones> paux=calificacionesRepository.getCalificaciones(s.getIdScore());
             if(paux.toString().equals("")){
                 
                 return calificacionesRepository.save(s);
