@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Especialidad</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="js/scoreFunctions.js"></script>
+    </head>
+        
+    <body>
+        <h2>Registro de Calificaciones</h2>
+
+        <fieldset style="width: 40%">
+            <legend>Datos de Calificación</legend>
+            <table>
+                <tr>
+                    <th>Score:</th>
+                    <td><input type="number" id="score"></td>
+                </tr>
+                <tr>
+                    <th>Mensaje:</th>
+                    <td><input type="text" id="message"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" value="GUARDAR" onclick="guardar()"> &nbsp;&nbsp;&nbsp;
+                        <input type="button" value="EDITAR" onclick="editar()"> &nbsp;&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <h2>Consultas </h2>
+        <hr>
+        <span style="color: blue;"><b>Busqueda por ID</b></span>
+        <input type="text"  id="id2">
+        <div id="resultados"></div>
+        <button onclick="consultar()">MOSTRAR TODO</button>
+        &nbsp;&nbsp;&nbsp;
+        <button onclick="buscarPorID($('#id2'))">MOSTAR UNO</button>
+        <br>
+        <a href="index.html">Volver a indice</a>
+    </body>
+</html>
