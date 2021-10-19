@@ -31,7 +31,7 @@ public class AdminController {
     }
     
     @GetMapping("/{id}")
-    public Optional<Admin> getAdmin(@PathVariable("idAdmin") int id) {
+    public Optional<Admin> getAdmin(@PathVariable("id") int id) {
         return service.getAdmin(id);
     }
     

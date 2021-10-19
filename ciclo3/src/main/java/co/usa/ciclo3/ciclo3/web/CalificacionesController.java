@@ -44,7 +44,7 @@ public class CalificacionesController {
     }
     
     @GetMapping("/{id}")
-    public Optional<Calificaciones> getCalificaciones(@PathVariable("idScore") int id) {
+    public Optional<Calificaciones> getCalificaciones(@PathVariable("id") int id) {
         return calificacionesService.getCalificaciones(id);
     }
     

@@ -1,6 +1,7 @@
 
 package co.usa.ciclo3.ciclo3.Modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,14 +10,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "admin")
-public class Admin {
+public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAdmin;
     private String email;
     private String password;
     private String name;
-    private Integer age;
 
     public Integer getIdAdmin() {
         return idAdmin;
@@ -49,13 +49,4 @@ public class Admin {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-    
 }
