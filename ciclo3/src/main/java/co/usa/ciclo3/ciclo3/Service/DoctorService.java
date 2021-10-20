@@ -60,4 +60,42 @@ public class DoctorService {
         
 
 }
+    
+    public Doctor update(Doctor s){
+        if(s.getId()!=null){
+            Optional<Doctor> saux = doctorRepository.getDoctor(s.getId());
+            if(!saux.isEmpty()){
+                if(s.getName()!=null){
+                    saux.get().setName(s.getName());
+                }
+                if(s.getDepartment()!=null){
+                    saux.get().setDepartment(s.getDepartment());
+                }
+                if(s.getYear()!=null){
+                    saux.get().setYear(s.getYear());
+                }
+                if(s.getDescription()!=null){
+                    saux.get().setDescription(s.getDescription());
+                }
+                if(s.getSpecialty()!=null){
+                    saux.get().setSpecialty(s.getSpecialty());
+                }
+                                
+                return doctorRepository.save(saux.get());
+
+            }
+        }
+        return s;
+    }
+ 
+    
+    public boolean delete(int id){
+        Optional<Doctor> s=getDoctor(id);
+        if(!s.isEmpty()){
+            doctorRepository.delete(s.get());
+            return true;
+        }
+        return false;
+
+    }
 }

@@ -58,4 +58,41 @@ public class ReservacionesService {
             }
     }
 }
+    public Reservaciones update(Reservaciones s){
+        if(s.getIdReservation()!=null){
+            Optional<Reservaciones> saux = reservacionesRepository.getReservaciones(s.getIdReservation());
+            if(!saux.isEmpty()){
+                if(s.getStartDate()!=null){
+                    saux.get().setStartDate(s.getStartDate());
+                }
+                if(s.getDevolutionDate()!=null){
+                    saux.get().setDevolutionDate(s.getDevolutionDate());
+                }
+                if(s.getStatus()!=null){
+                    saux.get().setStatus(s.getStatus());
+                }
+                if(s.getDoctor()!=null){
+                    saux.get().setDoctor(s.getDoctor());
+                }
+                if(s.getClient()!=null){
+                    saux.get().setClient(s.getClient());
+                }
+                
+                return reservacionesRepository.save(saux.get());
+
+            }
+        }
+        return s;
+    }
+ 
+    
+    public boolean delete(int id){
+        Optional<Reservaciones> s=getReservaciones(id);
+        if(!s.isEmpty()){
+            reservacionesRepository.delete(s.get());
+            return true;
+        }
+        return false;
+
+    }
 }

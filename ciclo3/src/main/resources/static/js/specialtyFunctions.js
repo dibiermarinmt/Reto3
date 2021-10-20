@@ -1,4 +1,4 @@
-var idCarga;
+var idCarga; // Guarda el Id del elemento cuando se da click en el botón cargar
 
 
 
@@ -40,7 +40,7 @@ function eliminar(idElemento){
     var elemento={
         "id":idElemento
       };
-      console.log("mirar id de elemento"+ idElemento)
+      console.log("mirar id de elemento"+ idElemento);
       
       var dataToSend=JSON.stringify(elemento);
     $.ajax({    
@@ -67,7 +67,7 @@ function eliminar(idElemento){
     });
 }
 
-function buscarPorID(idItem){
+/*function buscarPorID(idItem){
 
     var id = idItem; 
     $.ajax({    
@@ -103,7 +103,7 @@ function buscarPorID(idItem){
             alert('Petición realizada '+xhr.status);
         }
     });
-}
+}*/ // No se necesita
 
 
 function cargar(idItem){
@@ -141,7 +141,7 @@ function consultar(){
 }
 
 function pintarRespuesta(respuesta){
-    let myTable="<table>";
+    let myTable="<table border='1'>";
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
         myTable+="<td>"+respuesta[i].name+"</td>";
