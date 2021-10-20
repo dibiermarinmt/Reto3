@@ -39,4 +39,8 @@ public class EspecialidadRepository {
     
     }
     
+    public void delete(Especialidad s) {
+        especialidadCrudRepository.delete(s);
+    }
+    
 }
