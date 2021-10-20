@@ -121,7 +121,6 @@ function cargar(idItem){
           $("#status").val(json.status);
           $("#doctor").val(json.doctor.id);
           $("#client").val(json.client.idClient);
-          $("#score").val(json.score.idScore);
   
         }
     });
@@ -151,7 +150,6 @@ function pintarRespuesta(respuesta){
         myTable+="<td>"+respuesta[i].status+"</td>";
         myTable+="<td>"+respuesta[i].doctor.id+"</td>";
         myTable+="<td>"+respuesta[i].client.idClient+"</td>";
-        myTable+="<td>"+respuesta[i].score.idScore+"</td>";
         myTable+="<td><button onclick='borrar("+respuesta[i].idReservation+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].idReservation+")'>Cargar</button></td>";
         myTable+="</tr>";
@@ -166,8 +164,7 @@ function guardar(){
         devolutionDate:$("#devolutionDate").val(),
         status:$("#status").val(),
         doctor:{"id":$("#doctor").val()},
-        client:{"idClient":$("#client").val()},
-        score:{"idScore":$("#score").val()}
+        client:{"idClient":$("#client").val()}
     };
     $.ajax({
         type:'POST',
@@ -196,5 +193,4 @@ function limpiarFormulario(){
     $("#status").val("created");
     $("#doctor").val("");
     $("#client").val("");
-    $("#score").val("");
 }

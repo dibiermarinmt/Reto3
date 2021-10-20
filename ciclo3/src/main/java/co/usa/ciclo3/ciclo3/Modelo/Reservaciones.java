@@ -51,11 +51,7 @@ public class Reservaciones implements Serializable{
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "reservation")
     @JsonIgnoreProperties("reservation")
     private Calificaciones score;
-    
-    @ManyToOne
-    @JoinColumn(name="DoctorId")
-    @JsonIgnoreProperties("reservations")
-    private Doctor doctor;
+
     
     public Integer getIdReservation() {
         return idReservation;
@@ -111,15 +107,6 @@ public class Reservaciones implements Serializable{
 
     public void setScore(Calificaciones score) {
         this.score = score;
-    }
-
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
     }
     
 }

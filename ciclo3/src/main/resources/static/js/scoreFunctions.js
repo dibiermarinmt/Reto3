@@ -115,11 +115,10 @@ function cargar(idItem){
 
         success : function(json) {               
                 console.log(json);
-
-                var misItems=json.items;
   
           $("#score").val(json.score);
           $("#message").val(json.message);
+          $("#reservation").val(json.idReservation);
           
   
   
@@ -148,6 +147,7 @@ function pintarRespuesta(respuesta){
         myTable+="<tr>";
         myTable+="<td>"+respuesta[i].score+"</td>";
         myTable+="<td>"+respuesta[i].message+"</td>";
+        myTable+="<td>"+respuesta[i].reservation.idReservation+"</td>";
         myTable+="<td><button onclick='borrar("+respuesta[i].idScore+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].idScore+")'>Cargar</button></td>";
         myTable+="</tr>";
@@ -159,8 +159,10 @@ function pintarRespuesta(respuesta){
 function guardar(){
     let var2 = {
         score:$("#score").val(),
-        message:$("#message").val()
+        message:$("#message").val(),
+        reservation:{"idReservation":$("#reservation").val()}
     };
+    console.log(JSON.stringify(var2));
     $.ajax({
         type:'POST',
         contentType:"application/json; charset=utf-8",
@@ -185,4 +187,5 @@ function guardar(){
 function limpiarFormulario(){
     $("#score").val("");
     $("#message").val("");
+    $("#reservation").val("");
 }
