@@ -116,7 +116,7 @@ function cargar(idItem){
         success : function(json) {               
                 console.log(json);
   
-          $("#message").val(json.messageText);
+          $("#messageText").val(json.messageText);
           $("#doctor").val(json.doctor.id);
           $("#client").val(json.client.idClient);
           
@@ -143,11 +143,18 @@ function consultar(){
 
 function pintarRespuesta(respuesta){
     let myTable="<table>";
+
+
+    myTable+="<tr>";
+    myTable+="<td>"+"Mensaje"+" || "+"</td>";
+    myTable+="<td>"+"Nombre Doctor"+" || "+"</td>";
+    myTable+="<td>"+"Nombre Cliente"+"</td>";
+    myTable+="</tr>";
     for(i=0; i<respuesta.length; i++) {
-        myTable+="<tr>";
-        myTable+="<td>"+respuesta[i].messageText+"</td>";
-        myTable+="<td>"+respuesta[i].doctor.id+"</td>";
-        myTable+="<td>"+respuesta[i].client.idClient+"</td>";
+        
+        myTable+="<td>"+respuesta[i].messageText+" || "+"</td>";
+        myTable+="<td>"+respuesta[i].doctor.name+" || "+"</td>";
+        myTable+="<td>"+respuesta[i].client.name+"</td>";
         myTable+="<td><button onclick='borrar("+respuesta[i].idMessage+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].idMessage+")'>Cargar</button></td>";
         myTable+="</tr>";

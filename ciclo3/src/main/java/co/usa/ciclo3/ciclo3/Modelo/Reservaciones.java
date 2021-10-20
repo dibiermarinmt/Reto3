@@ -51,7 +51,6 @@ public class Reservaciones implements Serializable{
     @OneToOne(cascade = CascadeType.REMOVE, mappedBy = "reservation")
     @JsonIgnoreProperties("reservation")
     private Calificaciones score;
-
     
     public Integer getIdReservation() {
         return idReservation;

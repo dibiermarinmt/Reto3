@@ -143,8 +143,19 @@ function consultar(){
 
 function pintarRespuesta(respuesta){
     let myTable="<table>";
+
+    myTable+="<tr>";
+    myTable+="<td>"+"Id Reserva"+" || "+"</td>";
+    myTable+="<td>"+"Nombre Doctor"+" || "+"</td>";
+    myTable+="<td>"+"Id Cliente"+" || "+"</td>";
+    myTable+="<td>"+"Nombre Cliente"+" || "+"</td>";
+    myTable+="<td>"+"Email Cliente"+" || "+"</td>";
+    myTable+="<td>"+"Score"+"</td>";
+    myTable+="</tr>";
+
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
+
         myTable+="<td>"+respuesta[i].startDate+"</td>";
         myTable+="<td>"+respuesta[i].devolutionDate+"</td>";
         myTable+="<td>"+respuesta[i].status+"</td>";
