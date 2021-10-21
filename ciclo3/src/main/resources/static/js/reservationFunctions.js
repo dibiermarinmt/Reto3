@@ -12,7 +12,8 @@ function editar(){
         doctor:{"id":$("#doctor").val()},
         client:{"idClient":$("#client").val()}
     };
-    
+   
+   
     var dataToSend=JSON.stringify(elemento);
     $.ajax({    
 
