@@ -45,7 +45,7 @@ public class ReservacionesService {
     
         else {
             Optional<Reservaciones> paux=reservacionesRepository.getReservaciones(s.getIdReservation());
-            if(paux.toString().equals("")){
+            if(paux.isEmpty()){
                 
                 return reservacionesRepository.save(s);
                 

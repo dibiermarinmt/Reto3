@@ -45,7 +45,7 @@ public class EspecialidadService {
     
         else {
             Optional<Especialidad> paux=especialidadRepository.getEspecialidad(s.getId());
-            if(paux.toString().equals("")){
+            if(paux.isEmpty()){
                 
                 return especialidadRepository.save(s);
                 

@@ -45,7 +45,7 @@ public class DoctorService {
     
         else {
             Optional<Doctor> paux=doctorRepository.getDoctor(s.getId());
-            if(paux.toString().equals("")){
+            if(paux.isEmpty()){
                 
                 return doctorRepository.save(s);
                 

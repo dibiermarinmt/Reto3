@@ -143,27 +143,36 @@ function consultar(){
 }
 
 function pintarRespuesta(respuesta){
-    let myTable="<table>";
+    let myTable="<table border=1>";
 
-    myTable+="<tr>";
-    myTable+="<td>"+"Id Reserva"+" || "+"</td>";
-    myTable+="<td>"+"Nombre Doctor"+" || "+"</td>";
-    myTable+="<td>"+"Id Cliente"+" || "+"</td>";
-    myTable+="<td>"+"Nombre Cliente"+" || "+"</td>";
-    myTable+="<td>"+"Email Cliente"+" || "+"</td>";
-    myTable+="<td>"+"Score"+"</td>";
-    myTable+="</tr>";
+    myTable+="<thead>";
+    myTable+="<TR>";
+    myTable+="<th>"+"Id Reserva"+"</th>";
+    myTable+="<th>"+"Nombre Doctor"+"</th>";
+    myTable+="<th>"+"Id Cliente"+"</th>";
+    myTable+="<th>"+"Nombre Cliente"+"</th>";
+    myTable+="<th>"+"Email Cliente"+"</th>";
+    myTable+="<th>"+"Score"+"</th>";
+    myTable+="</TR>";
+    myTable+="</thead>";
 
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
-        myTable+="<td>"+respuesta[i].idReservation+" || "+"</td>";
-        myTable+="<td>"+respuesta[i].doctor.name+" || "+"</td>";
-        myTable+="<td>"+respuesta[i].client.idClient+" || "+"</td>";
-        myTable+="<td>"+respuesta[i].client.name+" || "+"</td>";
-        myTable+="<td>"+respuesta[i].client.email+" || "+"</td>";
-       // se debe arreglar el caso si score es nulo
+        myTable+="<td>"+respuesta[i].idReservation+"</td>";
+        myTable+="<td>"+respuesta[i].doctor.name+"</td>";
+        myTable+="<td>"+respuesta[i].client.idClient+"</td>";
+        myTable+="<td>"+respuesta[i].client.name+"</td>";
+        myTable+="<td>"+respuesta[i].client.email+"</td>";
+       
+
+       try{
             myTable+="<td>"+respuesta[i].score.score+"</td>";
-        
+       }
+       catch 
+       {
+            myTable+="<td>"+"Sin calificacion"+"</td>";
+       }
+       
         myTable+="<td><button onclick='borrar("+respuesta[i].idReservation+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].idReservation+")'>Cargar</button></td>";
         myTable+="</tr>";
@@ -176,11 +185,10 @@ function guardar(){
     let var2 = {
         startDate:$("#startDate").val(),
         devolutionDate:$("#devolutionDate").val(),
-        status:$("#status").val(),
-        doctor:{"id":$("#doctor").val()},
-        client:{"idClient":$("#client").val()},
-        score:{"idScore":$("#score").val()}
+        doctor:{"id":window.doctor},
+        client:{"idClient":$("#client").val()}        
     };
+    console.log(var2);
     $.ajax({
         type:'POST',
         contentType:"application/json; charset=utf-8",
@@ -210,3 +218,38 @@ function limpiarFormulario(){
     $("#client").val("");
     $("#score").val("");
 }
+
+function fillBook(document){    
+    var first_select = document.getElementById('Doctores').value;
+    
+    console.log('Primer select -> '+first_select);
+    window.doctor=first_select; 
+ }
+
+ function consultarDoctor(){
+    $.ajax({
+        url:"http://localhost:8080/api/Doctor/all",
+        type:"GET",
+        datatype:"JSON",
+        success:function(respuesta){
+            console.log(respuesta[0].name);
+            console.log(respuesta[1].name);
+            comboBoxDoctor(respuesta);
+        }
+    });
+}
+    function comboBoxDoctor(respuesta){
+        let myOption="<select name= Doctores id=Doctores>";
+                myOption+="<option value="+0+">"+"Seleccione Doctor"+"</option>"
+            for(i=0; i<respuesta.length; i++) {
+                myOption+="<option value="+respuesta[i].id+">"+respuesta[i].name+"</option>"
+
+
+
+
+}
+        myOption+="</select>";
+        $("#comboDoctor").html(myOption);
+        
+        
+    }

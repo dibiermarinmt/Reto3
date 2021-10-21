@@ -46,7 +46,7 @@ public class ClienteService {
     
         else {
             Optional<Cliente> paux=clienteRepository.getCliente(s.getIdClient());
-            if(paux.toString().equals("")){
+            if(paux.isEmpty()){
                 
                 return clienteRepository.save(s);
                 
