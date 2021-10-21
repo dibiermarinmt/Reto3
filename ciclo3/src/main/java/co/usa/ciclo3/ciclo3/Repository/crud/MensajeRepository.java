@@ -39,4 +39,8 @@ public class MensajeRepository {
     
     }
     
+    public void delete(Mensaje s) {
+       mensajeCrudRepository.delete(s);
+    }
+    
 }

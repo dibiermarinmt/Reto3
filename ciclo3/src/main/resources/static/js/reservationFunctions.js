@@ -1,26 +1,27 @@
-function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento){
-    idElemento=$("#id").val(),
-    speElemento= $("#specialty").val(),
-    graduaElemento= $("#graduate_year").val(),
-    depaElemento= $("#department_id").val(),
-    nameElemento= $("#name").val()
+var idCarga; // Guarda el Id del elemento cuando se da click en el botón cargar
+
+
+
+function editar(){
 
     var elemento={
-        id:idElemento,
-        specialty:speElemento,
-        graduate_year:graduaElemento,
-        department_id:depaElemento,
-        name:nameElemento
+        idReservation: idCarga,
+        startDate:$("#startDate").val(),
+        devolutionDate:$("#devolutionDate").val(),
+        status:$("#status").val(),
+        doctor:{"id":$("#doctor").val()},
+        client:{"idClient":$("#client").val()}
     };
-    
+   
+   
     var dataToSend=JSON.stringify(elemento);
     $.ajax({    
 
-        dataType : 'json',
+        dataType : 'JSON',
        
-        data : dataToSend,
+        data: dataToSend,
         
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url: 'http://localhost:8080/api/Reservation/update',
         
         type: 'PUT',
         contentType:'application/json',
@@ -33,75 +34,41 @@ function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento)
         
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
+            //alert('Petición realizada '+xhr.status);
             limpiarFormulario();
+            consultar();
+            idCarga=null;
         }
     });
 }
 
 function eliminar(idElemento){
     var elemento={
-        id:idElemento
+        "id":idElemento
       };
-      
+      console.log("mirar id de elemento"+ idElemento);
       
       var dataToSend=JSON.stringify(elemento);
     $.ajax({    
         
-        dataType : 'json',
+        dataType : 'JSON',
        
         data : dataToSend,
         
        
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url : "http://localhost:8080/api/Reservation/"+idElemento,
         type: 'DELETE',
         contentType:'application/json',
         success : function(json, textStatus, xhr) {
           
                 console.log(idElemento);
+                
         },
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
-            limpiarFormulario();
-        }
-    });
-}
-
-function buscarPorID(idItem){
-
-    var id = idItem 
-    $.ajax({    
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor/'+id.val(),
-        type : 'GET',
-        dataType : 'json',        
-
-        success : function(json) {
-                $("#resultados").empty();
-               
-                console.log(json.items[0].id +" $"+json.items[0].name);
-                console.log("no se puedo ")
-
-                var misItems=json.items;
-                    
-                
-                 
-                  $("#resultados").append("<tr>");
-                  $("#resultados").append("<td>"+misItems[0].id+" || "+ "</td>");
-                  $("#resultados").append("<td>"+misItems[0].specialty+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].graduate_year+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].department_id+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].name+" || "+"</td>");
-                  $("#resultados").append('<td><button onclick="eliminar('+misItems[0].id+')">Borrar</button></td>');
-                  $("#resultados").append('<td><button onclick="obtenerItemEspecifico('+misItems[0].id+')">Cargar</button></td>');
-                  $("#resultados").append("</tr>");
-        
-                
-
-        },
-        
-        complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
+           //lert('Petición realizada '+xhr.status);
+            //limpiarFormulario();
+            consultar();
         }
     });
 }
@@ -121,7 +88,8 @@ function cargar(idItem){
           $("#status").val(json.status);
           $("#doctor").val(json.doctor.id);
           $("#client").val(json.client.idClient);
-          $("#score").val(json.score.idScore);
+          idCarga = idItem;
+          console.log("idCarga es " +idCarga);
   
         }
     });
@@ -143,6 +111,7 @@ function consultar(){
 }
 
 function pintarRespuesta(respuesta){
+<<<<<<< HEAD
     let myTable="<table border=1>";
 
     myTable+="<thead>";
@@ -155,9 +124,13 @@ function pintarRespuesta(respuesta){
     myTable+="<th>"+"Score"+"</th>";
     myTable+="</TR>";
     myTable+="</thead>";
+=======
+>>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b
 
+    let myTable="<table border='1'>";
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
+<<<<<<< HEAD
         myTable+="<td>"+respuesta[i].idReservation+"</td>";
         myTable+="<td>"+respuesta[i].doctor.name+"</td>";
         myTable+="<td>"+respuesta[i].client.idClient+"</td>";
@@ -174,6 +147,14 @@ function pintarRespuesta(respuesta){
        }
        
         myTable+="<td><button onclick='borrar("+respuesta[i].idReservation+")'>Borrar</button></td>";
+=======
+        myTable+="<td>"+respuesta[i].startDate+"</td>";
+        myTable+="<td>"+respuesta[i].devolutionDate+"</td>";
+        myTable+="<td>"+respuesta[i].status+"</td>";
+        myTable+="<td>"+respuesta[i].doctor.id+"</td>";
+        myTable+="<td>"+respuesta[i].client.idClient+"</td>";
+        myTable+="<td><button onclick='eliminar("+respuesta[i].idReservation+")'>Borrar</button></td>";
+>>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b
         myTable+="<td><button onclick='cargar("+respuesta[i].idReservation+")'>Cargar</button></td>";
         myTable+="</tr>";
     }
@@ -185,8 +166,14 @@ function guardar(){
     let var2 = {
         startDate:$("#startDate").val(),
         devolutionDate:$("#devolutionDate").val(),
+<<<<<<< HEAD
         doctor:{"id":window.doctor},
         client:{"idClient":$("#client").val()}        
+=======
+        status:$("#status").val(),
+        doctor:{"id":$("#doctor").val()},
+        client:{"idClient":$("#client").val()}
+>>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b
     };
     console.log(var2);
     $.ajax({
@@ -216,6 +203,7 @@ function limpiarFormulario(){
     $("#status").val("created");
     $("#doctor").val("");
     $("#client").val("");
+<<<<<<< HEAD
     $("#score").val("");
 }
 
@@ -253,3 +241,6 @@ function fillBook(document){
         
         
     }
+=======
+}
+>>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b

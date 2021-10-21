@@ -59,4 +59,35 @@ public class MensajeService {
             }
     }
 }
+    
+    public Mensaje update(Mensaje s){
+        if(s.getIdMessage()!=null){
+            Optional<Mensaje> saux = mensajeRepository.getMensaje(s.getIdMessage());
+            if(!saux.isEmpty()){
+                if(s.getMessageText()!=null){
+                    saux.get().setMessageText(s.getMessageText());
+                }
+                if(s.getDoctor()!=null){
+                    saux.get().setDoctor(s.getDoctor());
+                }
+                if(s.getClient()!=null){
+                    saux.get().setClient(s.getClient());
+                }
+                return mensajeRepository.save(saux.get());
+
+            }
+        }
+        return s;
+    }
+ 
+    
+    public boolean delete(int id){
+        Optional<Mensaje> s=getMensaje(id);
+        if(!s.isEmpty()){
+            mensajeRepository.delete(s.get());
+            return true;
+        }
+        return false;
+
+    }
 }

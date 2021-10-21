@@ -59,4 +59,34 @@ public class EspecialidadService {
     }
         
 
-}}
+}
+    
+    public Especialidad update(Especialidad s){
+        if(s.getId()!=null){
+            Optional<Especialidad> saux = especialidadRepository.getEspecialidad(s.getId());
+            if(!saux.isEmpty()){
+                if(s.getName()!=null){
+                    saux.get().setName(s.getName());
+                }
+                if(s.getDescription()!=null){
+                    saux.get().setDescription(s.getDescription());
+                }
+                return especialidadRepository.save(saux.get());
+
+            }
+        }
+        return s;
+    }
+ 
+    
+    public boolean delete(int id){
+        Optional<Especialidad> s=getEspecialidad(id);
+        if(!s.isEmpty()){
+            especialidadRepository.delete(s.get());
+            return true;
+        }
+        return false;
+
+    }
+
+}

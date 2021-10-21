@@ -40,4 +40,8 @@ public class ReservacionesRepository {
     
     }
     
+    public void delete(Reservaciones s) {
+        reservacionesCrudRepository.delete(s);
+    }
+    
 }

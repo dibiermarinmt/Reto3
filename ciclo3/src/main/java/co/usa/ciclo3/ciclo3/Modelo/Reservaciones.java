@@ -52,8 +52,6 @@ public class Reservaciones implements Serializable{
     @JsonIgnoreProperties("reservation")
     private Calificaciones score;
     
-   
-    
     public Integer getIdReservation() {
         return idReservation;
     }
@@ -109,7 +107,5 @@ public class Reservaciones implements Serializable{
     public void setScore(Calificaciones score) {
         this.score = score;
     }
-
-
     
 }

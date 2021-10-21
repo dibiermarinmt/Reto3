@@ -62,5 +62,39 @@ public class ClienteService {
 
 }
     
+    public Cliente update(Cliente s){
+        if(s.getIdClient()!=null){
+            Optional<Cliente> saux = clienteRepository.getCliente(s.getIdClient());
+            if(!saux.isEmpty()){
+                if(s.getName()!=null){
+                    saux.get().setName(s.getName());
+                }
+                if(s.getEmail()!=null){
+                    saux.get().setEmail(s.getEmail());
+                }
+                if(s.getPassword()!=null){
+                    saux.get().setEmail(s.getPassword());
+                }
+                if(s.getAge()!=null){
+                    saux.get().setAge(s.getAge());
+                }                
+                return clienteRepository.save(saux.get());
+
+            }
+        }
+        return s;
+    }
+ 
+    
+    public boolean delete(int id){
+        Optional<Cliente> s=getCliente(id);
+        if(!s.isEmpty()){
+            clienteRepository.delete(s.get());
+            return true;
+        }
+        return false;
+
+    }
+    
     
 }
