@@ -236,7 +236,7 @@ function consultarDatos(){
         window.doctor=first_select; 
      }
 
-//// funciones combo box Client 1(consulta) 2(llenado Option) 3(declaracion variable global Doctor)
+//// funciones combo box Client 1(consulta) 2(llenado Option) 3(declaracion variable global Doctor id)
 
 function consultarCliente(){
     $.ajax({
@@ -268,7 +268,7 @@ function consultarCliente(){
         window.client=first_select; 
      }
 
-//toma de datos para calificar
+//toma de datos para calificar, se habilita los campos de texto
 
      function Calificar(idItem){
         $.ajax({    
@@ -294,6 +294,9 @@ function consultarCliente(){
         });
     }
     
+
+//se toman los datos y se envian en el post
+
     function calificacion(){
 
         let var2 = {
