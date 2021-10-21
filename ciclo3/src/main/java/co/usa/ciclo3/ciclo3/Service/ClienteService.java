@@ -73,7 +73,7 @@ public class ClienteService {
                     saux.get().setEmail(s.getEmail());
                 }
                 if(s.getPassword()!=null){
-                    saux.get().setEmail(s.getPassword());
+                    saux.get().setPassword(s.getPassword());
                 }
                 if(s.getAge()!=null){
                     saux.get().setAge(s.getAge());
