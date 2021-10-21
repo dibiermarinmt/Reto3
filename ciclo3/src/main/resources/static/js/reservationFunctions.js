@@ -111,7 +111,7 @@ function consultar(){
 }
 
 function pintarRespuesta(respuesta){
-<<<<<<< HEAD
+
     let myTable="<table border=1>";
 
     myTable+="<thead>";
@@ -124,13 +124,11 @@ function pintarRespuesta(respuesta){
     myTable+="<th>"+"Score"+"</th>";
     myTable+="</TR>";
     myTable+="</thead>";
-=======
->>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b
 
     let myTable="<table border='1'>";
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
-<<<<<<< HEAD
+
         myTable+="<td>"+respuesta[i].idReservation+"</td>";
         myTable+="<td>"+respuesta[i].doctor.name+"</td>";
         myTable+="<td>"+respuesta[i].client.idClient+"</td>";
@@ -147,14 +145,7 @@ function pintarRespuesta(respuesta){
        }
        
         myTable+="<td><button onclick='borrar("+respuesta[i].idReservation+")'>Borrar</button></td>";
-=======
-        myTable+="<td>"+respuesta[i].startDate+"</td>";
-        myTable+="<td>"+respuesta[i].devolutionDate+"</td>";
-        myTable+="<td>"+respuesta[i].status+"</td>";
-        myTable+="<td>"+respuesta[i].doctor.id+"</td>";
-        myTable+="<td>"+respuesta[i].client.idClient+"</td>";
-        myTable+="<td><button onclick='eliminar("+respuesta[i].idReservation+")'>Borrar</button></td>";
->>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b
+
         myTable+="<td><button onclick='cargar("+respuesta[i].idReservation+")'>Cargar</button></td>";
         myTable+="</tr>";
     }
@@ -166,14 +157,9 @@ function guardar(){
     let var2 = {
         startDate:$("#startDate").val(),
         devolutionDate:$("#devolutionDate").val(),
-<<<<<<< HEAD
+
         doctor:{"id":window.doctor},
         client:{"idClient":$("#client").val()}        
-=======
-        status:$("#status").val(),
-        doctor:{"id":$("#doctor").val()},
-        client:{"idClient":$("#client").val()}
->>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b
     };
     console.log(var2);
     $.ajax({
@@ -203,7 +189,7 @@ function limpiarFormulario(){
     $("#status").val("created");
     $("#doctor").val("");
     $("#client").val("");
-<<<<<<< HEAD
+
     $("#score").val("");
 }
 
@@ -241,6 +227,3 @@ function fillBook(document){
         
         
     }
-=======
-}
->>>>>>> f407f80c6f37a70f3ecd92c87f9e0b3873fe4f1b
