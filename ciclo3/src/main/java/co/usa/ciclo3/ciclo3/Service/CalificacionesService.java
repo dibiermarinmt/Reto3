@@ -47,7 +47,7 @@ public class CalificacionesService {
     
         else {
             Optional<Calificaciones> paux=calificacionesRepository.getCalificaciones(s.getIdScore());
-            if(paux.toString().equals("")){
+            if(paux.isEmpty()){
                 
                 return calificacionesRepository.save(s);
                 

@@ -110,6 +110,7 @@ function consultar(){
 }
 
 function pintarRespuesta(respuesta){
+
     let myTable="<table border='1'>";
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
