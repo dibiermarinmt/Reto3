@@ -30,8 +30,10 @@ function editar(){
         
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
-            //limpiarFormulario();
+            //alert('Petición realizada '+xhr.status);
+            limpiarFormulario();
+            consultar();
+            idCarga=null;
         }
     });
 }
@@ -139,6 +141,7 @@ function consultar(){
         }
     });
 }
+consultar();
 
 function pintarRespuesta(respuesta){
     let myTable="<table border='1'>";

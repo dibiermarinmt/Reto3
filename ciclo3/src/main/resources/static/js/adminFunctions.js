@@ -1,26 +1,24 @@
-function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento){
-    idElemento=$("#id").val(),
-    speElemento= $("#specialty").val(),
-    graduaElemento= $("#graduate_year").val(),
-    depaElemento= $("#department_id").val(),
-    nameElemento= $("#name").val()
+var idCarga; // Guarda el Id del elemento cuando se da click en el botón cargar
+
+
+
+function editar(){
 
     var elemento={
-        id:idElemento,
-        specialty:speElemento,
-        graduate_year:graduaElemento,
-        department_id:depaElemento,
-        name:nameElemento
+        "idAdmin":idCarga,
+        "name":$("#name").val(),
+        "email":$("#email").val(),
+        "password":$("#password").val()
     };
     
     var dataToSend=JSON.stringify(elemento);
     $.ajax({    
 
-        dataType : 'json',
+        dataType : 'JSON',
        
-        data : dataToSend,
+        data: dataToSend,
         
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url: 'http://localhost:8080/api/Admin/update',
         
         type: 'PUT',
         contentType:'application/json',
@@ -33,75 +31,41 @@ function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento)
         
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
+            //alert('Petición realizada '+xhr.status);
             limpiarFormulario();
+            consultar();
+            idCarga=null;
         }
     });
 }
 
 function eliminar(idElemento){
     var elemento={
-        id:idElemento
+        "idAdmin":idElemento
       };
-      
+      console.log("mirar id de elemento"+ idElemento);
       
       var dataToSend=JSON.stringify(elemento);
     $.ajax({    
         
-        dataType : 'json',
+        dataType : 'JSON',
        
         data : dataToSend,
         
        
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url : "http://localhost:8080/api/Admin/"+idElemento,
         type: 'DELETE',
         contentType:'application/json',
         success : function(json, textStatus, xhr) {
           
                 console.log(idElemento);
+                
         },
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
-            limpiarFormulario();
-        }
-    });
-}
-
-function buscarPorID(idItem){
-
-    var id = idItem 
-    $.ajax({    
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor/'+id.val(),
-        type : 'GET',
-        dataType : 'json',        
-
-        success : function(json) {
-                $("#resultados").empty();
-               
-                console.log(json.items[0].id +" $"+json.items[0].name);
-                console.log("no se puedo ")
-
-                var misItems=json.items;
-                    
-                
-                 
-                  $("#resultados").append("<tr>");
-                  $("#resultados").append("<td>"+misItems[0].id+" || "+ "</td>");
-                  $("#resultados").append("<td>"+misItems[0].specialty+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].graduate_year+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].department_id+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].name+" || "+"</td>");
-                  $("#resultados").append('<td><button onclick="eliminar('+misItems[0].id+')">Borrar</button></td>');
-                  $("#resultados").append('<td><button onclick="obtenerItemEspecifico('+misItems[0].id+')">Cargar</button></td>');
-                  $("#resultados").append("</tr>");
-        
-                
-
-        },
-        
-        complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
+           //lert('Petición realizada '+xhr.status);
+            //limpiarFormulario();
+            consultar();
         }
     });
 }
@@ -121,6 +85,8 @@ function cargar(idItem){
           $("#name").val(json.name);
           $("#email").val(json.email);
           $("#password").val(json.password);
+          idCarga = idItem;
+          console.log("idCarga es " +idCarga);
           
   
   
@@ -144,13 +110,13 @@ function consultar(){
 }
 
 function pintarRespuesta(respuesta){
-    let myTable="<table>";
+    let myTable="<table border='1'>";
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
         myTable+="<td>"+respuesta[i].name+"</td>";
         myTable+="<td>"+respuesta[i].email+"</td>";
         myTable+="<td>"+respuesta[i].password+"</td>";
-        myTable+="<td><button onclick='borrar("+respuesta[i].idAdmin+")'>Borrar</button></td>";
+        myTable+="<td><button onclick='eliminar("+respuesta[i].idAdmin+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].idAdmin+")'>Cargar</button></td>";
         myTable+="</tr>";
     }
