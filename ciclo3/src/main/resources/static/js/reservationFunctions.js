@@ -155,8 +155,8 @@ function pintarRespuesta(respuesta){
 
 function guardar(){
     let var2 = {
-        startDate:$("#startDate").val(),
-        devolutionDate:$("#devolutionDate").val(),
+        startDate:$("#year").val()+"-"+$("#month").val()+"-"+$("#day").val(),
+        devolutionDate:$("#yearD").val()+"-"+$("#monthD").val()+"-"+$("#dayD").val(),
 
         doctor:{"id":window.doctor},
         client:{"idClient":window.client}        
@@ -184,8 +184,12 @@ function guardar(){
 }
 
 function limpiarFormulario(){
-    $("#startDate").val("");
-    $("#devolutionDate").val("");
+    $("#year").val("");
+    $("#month").val("");
+    $("#day").val("");
+    $("#yearD").val("");
+    $("#monthD").val("");
+    $("#dayD").val("");
     $("#status").val("created");
     $("#doctor").val("");
     $("#client").val("");
@@ -217,9 +221,6 @@ function consultarDatos(){
                 myOption+="<option value="+0+">"+"Seleccione Doctor"+"</option>"
             for(i=0; i<respuesta.length; i++) {
                 myOption+="<option value="+respuesta[i].id+">"+respuesta[i].name+"</option>"
-
-
-
 
 }
         myOption+="</select>";
@@ -266,6 +267,3 @@ function consultarCliente(){
         console.log('Client select -> '+first_select);
         window.client=first_select; 
      }
-
-
-
