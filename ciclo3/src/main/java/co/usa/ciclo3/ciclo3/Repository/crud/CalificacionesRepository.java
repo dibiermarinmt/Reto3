@@ -16,11 +16,15 @@ public class CalificacionesRepository {
         return (List<Calificaciones>) crud.findAll();
     }
     
-    public Optional<Calificaciones> getScore(int id) {
+    public Optional<Calificaciones> getCalificaciones(int id) {
         return crud.findById(id);
     }
     
     public Calificaciones save(Calificaciones score) {
         return crud.save(score);
+    }
+    
+    public void delete(Calificaciones score) {
+        crud.delete(score);
     }
 }

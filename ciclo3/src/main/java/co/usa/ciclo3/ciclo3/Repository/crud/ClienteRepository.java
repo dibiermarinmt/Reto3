@@ -40,4 +40,8 @@ public class ClienteRepository {
     
     }
     
+    public void delete(Cliente s) {
+        clienteCrudRepository.delete(s);
+    }
+    
 }

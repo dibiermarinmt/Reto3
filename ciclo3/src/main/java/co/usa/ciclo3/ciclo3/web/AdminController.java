@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package co.usa.ciclo3.ciclo3.web;
 
-import co.usa.ciclo3.ciclo3.Modelo.Especialidad;
-import co.usa.ciclo3.ciclo3.Service.EspecialidadService;
+import co.usa.ciclo3.ciclo3.Modelo.Admin;
+import co.usa.ciclo3.ciclo3.Service.AdminService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,57 +19,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author roll-
- */
 
 @RestController
-@RequestMapping("/api/Specialty")
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-
-
-public class EspecialidadController {
-    
-    
+@RequestMapping("/api/Admin")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+public class AdminController {
     @Autowired
-    private EspecialidadService especialidadService;
-    
+    private AdminService service;
     
     @GetMapping("/all")
-    public List<Especialidad> getEspecialidad(){
-    
-        return especialidadService.getAll();
-    
+    public List<Admin> getAdmins() {
+        return service.getAll();
     }
     
     @GetMapping("/{id}")
-    public Optional<Especialidad> getEspecialidades(@PathVariable("id")int id){
-    
-    return especialidadService.getEspecialidad(id);
-    
-    
+    public Optional<Admin> getAdmin(@PathVariable("id") int id) {
+        return service.getAdmin(id);
     }
-    
     
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Especialidad save(@RequestBody Especialidad s){
-    
-        return especialidadService.save(s);
-    
+    public Admin save(@RequestBody Admin admin) {
+        return service.save(admin);
     }
     
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Especialidad update(@RequestBody Especialidad especialidad) {
-        return especialidadService.update(especialidad);
+    public Admin update(@RequestBody Admin admin) {
+        return service.update(admin);
     }
     
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int id) {
-        return especialidadService.delete(id);
+        return service.delete(id);
     }
-    
 }

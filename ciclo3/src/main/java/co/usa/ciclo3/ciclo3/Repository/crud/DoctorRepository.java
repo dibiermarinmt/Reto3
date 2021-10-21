@@ -39,6 +39,10 @@ public class DoctorRepository {
     
     }
     
+    public void delete(Doctor s) {
+        doctorCrudRepository.delete(s);
+    }
+    
 
     
 }

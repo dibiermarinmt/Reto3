@@ -33,7 +33,7 @@ public class CalificacionesService {
     
     public Optional<Calificaciones> getCalificaciones(int id){
         
-        return calificacionesRepository.getScore(id);
+        return calificacionesRepository.getCalificaciones(id);
         
     }
     
@@ -46,8 +46,8 @@ public class CalificacionesService {
         } 
     
         else {
-            Optional<Calificaciones> paux=calificacionesRepository.getScore(s.getIdScore());
-            if(paux.toString().equals("")){
+            Optional<Calificaciones> paux=calificacionesRepository.getCalificaciones(s.getIdScore());
+            if(paux.isEmpty()){
                 
                 return calificacionesRepository.save(s);
                 
@@ -62,6 +62,36 @@ public class CalificacionesService {
         
 
 }
+    
+    public Calificaciones update(Calificaciones s){
+        if(s.getIdScore()!=null){
+            Optional<Calificaciones> saux = calificacionesRepository.getCalificaciones(s.getIdScore());
+            if(!saux.isEmpty()){
+                if(s.getScore()!=null){
+                    saux.get().setScore(s.getScore());
+                }
+                if(s.getMessage()!=null){
+                    saux.get().setMessage(s.getMessage());
+                }
+                if(s.getReservation()!=null){
+                    saux.get().setReservation(s.getReservation());
+                }
+                return calificacionesRepository.save(saux.get());
+            }
+        }
+        return s;
+    }
+ 
+    
+    public boolean delete(int id){
+        Optional<Calificaciones> s=getCalificaciones(id);
+        if(!s.isEmpty()){
+            calificacionesRepository.delete(s.get());
+            return true;
+        }
+        return false;
+
+    }
     
     
 }
