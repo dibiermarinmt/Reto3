@@ -1,26 +1,24 @@
-function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento){
-    idElemento=$("#id").val(),
-    speElemento= $("#specialty").val(),
-    graduaElemento= $("#graduate_year").val(),
-    depaElemento= $("#department_id").val(),
-    nameElemento= $("#name").val()
+var idCarga; // Guarda el Id del elemento cuando se da click en el botón cargar
+
+
+
+function editar(){
 
     var elemento={
-        id:idElemento,
-        specialty:speElemento,
-        graduate_year:graduaElemento,
-        department_id:depaElemento,
-        name:nameElemento
+        idMessage:idCarga,
+        messageText:$("#messageText").val(),
+        doctor:{"id":$("#doctor").val()},
+        client:{"idClient":$("#client").val()}
     };
     
     var dataToSend=JSON.stringify(elemento);
     $.ajax({    
 
-        dataType : 'json',
+        dataType : 'JSON',
        
-        data : dataToSend,
+        data: dataToSend,
         
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url: 'http://localhost:8080/api/Message/update',
         
         type: 'PUT',
         contentType:'application/json',
@@ -33,75 +31,41 @@ function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento)
         
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
+            //alert('Petición realizada '+xhr.status);
             limpiarFormulario();
+            consultar();
+            idCarga=null;
         }
     });
 }
 
 function eliminar(idElemento){
     var elemento={
-        id:idElemento
+        "id":idElemento
       };
-      
+      console.log("mirar id de elemento"+ idElemento);
       
       var dataToSend=JSON.stringify(elemento);
     $.ajax({    
         
-        dataType : 'json',
+        dataType : 'JSON',
        
         data : dataToSend,
         
        
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url : "http://localhost:8080/api/Message/"+idElemento,
         type: 'DELETE',
         contentType:'application/json',
         success : function(json, textStatus, xhr) {
           
                 console.log(idElemento);
+                
         },
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
-            limpiarFormulario();
-        }
-    });
-}
-
-function buscarPorID(idItem){
-
-    var id = idItem 
-    $.ajax({    
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor/'+id.val(),
-        type : 'GET',
-        dataType : 'json',        
-
-        success : function(json) {
-                $("#resultados").empty();
-               
-                console.log(json.items[0].id +" $"+json.items[0].name);
-                console.log("no se puedo ")
-
-                var misItems=json.items;
-                    
-                
-                 
-                  $("#resultados").append("<tr>");
-                  $("#resultados").append("<td>"+misItems[0].id+" || "+ "</td>");
-                  $("#resultados").append("<td>"+misItems[0].specialty+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].graduate_year+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].department_id+" || "+"</td>");
-                  $("#resultados").append("<td>"+misItems[0].name+" || "+"</td>");
-                  $("#resultados").append('<td><button onclick="eliminar('+misItems[0].id+')">Borrar</button></td>');
-                  $("#resultados").append('<td><button onclick="obtenerItemEspecifico('+misItems[0].id+')">Cargar</button></td>');
-                  $("#resultados").append("</tr>");
-        
-                
-
-        },
-        
-        complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
+           //lert('Petición realizada '+xhr.status);
+            //limpiarFormulario();
+            consultar();
         }
     });
 }
@@ -119,6 +83,8 @@ function cargar(idItem){
           $("#messageText").val(json.messageText);
           $("#doctor").val(json.doctor.id);
           $("#client").val(json.client.idClient);
+          idCarga = idItem;
+          console.log("idCarga es " +idCarga);
           
   
   
@@ -142,20 +108,14 @@ function consultar(){
 }
 
 function pintarRespuesta(respuesta){
-    let myTable="<table>";
 
-
-    myTable+="<tr>";
-    myTable+="<td>"+"Mensaje"+" || "+"</td>";
-    myTable+="<td>"+"Nombre Doctor"+" || "+"</td>";
-    myTable+="<td>"+"Nombre Cliente"+"</td>";
-    myTable+="</tr>";
+    let myTable="<table border='1'>";
     for(i=0; i<respuesta.length; i++) {
-        
-        myTable+="<td>"+respuesta[i].messageText+" || "+"</td>";
-        myTable+="<td>"+respuesta[i].doctor.name+" || "+"</td>";
-        myTable+="<td>"+respuesta[i].client.name+"</td>";
-        myTable+="<td><button onclick='borrar("+respuesta[i].idMessage+")'>Borrar</button></td>";
+        myTable+="<tr>";
+        myTable+="<td>"+respuesta[i].messageText+"</td>";
+        myTable+="<td>"+respuesta[i].doctor.id+"</td>";
+        myTable+="<td>"+respuesta[i].client.idClient+"</td>";
+        myTable+="<td><button onclick='eliminar("+respuesta[i].idMessage+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].idMessage+")'>Cargar</button></td>";
         myTable+="</tr>";
     }

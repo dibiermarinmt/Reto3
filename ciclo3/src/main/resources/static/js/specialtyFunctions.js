@@ -1,26 +1,23 @@
-function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento){
-    idElemento=$("#id").val(),
-    speElemento= $("#specialty").val(),
-    graduaElemento= $("#graduate_year").val(),
-    depaElemento= $("#department_id").val(),
-    nameElemento= $("#name").val()
+var idCarga; // Guarda el Id del elemento cuando se da click en el botón cargar
+
+
+
+function editar(){
 
     var elemento={
-        id:idElemento,
-        specialty:speElemento,
-        graduate_year:graduaElemento,
-        department_id:depaElemento,
-        name:nameElemento
+        "id": idCarga,
+        "name":$("#name").val(),
+        "description":$("#description").val()
     };
     
     var dataToSend=JSON.stringify(elemento);
     $.ajax({    
 
-        dataType : 'json',
+        dataType : 'JSON',
        
-        data : dataToSend,
+        data: dataToSend,
         
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url: 'http://localhost:8080/api/Specialty/update',
         
         type: 'PUT',
         contentType:'application/json',
@@ -33,44 +30,48 @@ function editar(idElemento,speElemento,graduaElemento,depaElemento,nameElemento)
         
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
+            //alert('Petición realizada '+xhr.status);
             limpiarFormulario();
+            consultar();
+            idCarga=null;
         }
     });
 }
 
 function eliminar(idElemento){
     var elemento={
-        id:idElemento
+        "id":idElemento
       };
-      
+      console.log("mirar id de elemento"+ idElemento);
       
       var dataToSend=JSON.stringify(elemento);
     $.ajax({    
         
-        dataType : 'json',
+        dataType : 'JSON',
        
         data : dataToSend,
         
        
-        url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor',
+        url : "http://localhost:8080/api/Specialty/"+idElemento,
         type: 'DELETE',
         contentType:'application/json',
         success : function(json, textStatus, xhr) {
           
                 console.log(idElemento);
+                
         },
         
         complete : function(xhr, status) {
-            alert('Petición realizada '+xhr.status);
-            limpiarFormulario();
+           //lert('Petición realizada '+xhr.status);
+            //limpiarFormulario();
+            consultar();
         }
     });
 }
 
-function buscarPorID(idItem){
+/*function buscarPorID(idItem){
 
-    var id = idItem 
+    var id = idItem; 
     $.ajax({    
         url : 'https://ga9c9b6eca3f530-db202109271959.adb.sa-santiago-1.oraclecloudapps.com/ords/admin/doctor/doctor/'+id.val(),
         type : 'GET',
@@ -80,7 +81,7 @@ function buscarPorID(idItem){
                 $("#resultados").empty();
                
                 console.log(json.items[0].id +" $"+json.items[0].name);
-                console.log("no se puedo ")
+                console.log("no se puedo ");
 
                 var misItems=json.items;
                     
@@ -104,7 +105,7 @@ function buscarPorID(idItem){
             alert('Petición realizada '+xhr.status);
         }
     });
-}
+}*/ // No se necesita
 
 
 function cargar(idItem){
@@ -116,13 +117,12 @@ function cargar(idItem){
         success : function(json) {               
                 console.log(json);
 
-                var misItems=json.items;
   
           $("#name").val(json.name);
           $("#description").val(json.description);
-          
-  
-  
+          idCarga = idItem;
+          console.log("idCarga es " +idCarga);
+
         }
     });
 }
@@ -141,14 +141,15 @@ function consultar(){
         }
     });
 }
+consultar();
 
 function pintarRespuesta(respuesta){
-    let myTable="<table>";
+    let myTable="<table border='1'>";
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
         myTable+="<td>"+respuesta[i].name+"</td>";
         myTable+="<td>"+respuesta[i].description+"</td>";
-        myTable+="<td><button onclick='borrar("+respuesta[i].id+")'>Borrar</button></td>";
+        myTable+="<td><button onclick='eliminar("+respuesta[i].id+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].id+")'>Cargar</button></td>";
         myTable+="</tr>";
     }

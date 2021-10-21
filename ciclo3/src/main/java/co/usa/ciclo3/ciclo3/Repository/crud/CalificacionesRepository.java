@@ -23,4 +23,8 @@ public class CalificacionesRepository {
     public Calificaciones save(Calificaciones score) {
         return crud.save(score);
     }
+    
+    public void delete(Calificaciones score) {
+        crud.delete(score);
+    }
 }
