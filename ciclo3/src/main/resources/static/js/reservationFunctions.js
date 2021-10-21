@@ -125,7 +125,7 @@ function pintarRespuesta(respuesta){
     myTable+="</TR>";
     myTable+="</thead>";
 
-    let myTable="<table border='1'>";
+    
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
 
