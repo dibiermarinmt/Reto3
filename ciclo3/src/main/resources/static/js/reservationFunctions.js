@@ -159,7 +159,7 @@ function guardar(){
         devolutionDate:$("#devolutionDate").val(),
 
         doctor:{"id":window.doctor},
-        client:{"idClient":$("#client").val()}        
+        client:{"idClient":window.client}        
     };
     console.log(var2);
     $.ajax({
@@ -193,12 +193,14 @@ function limpiarFormulario(){
     $("#score").val("");
 }
 
-function fillBook(document){    
-    var first_select = document.getElementById('Doctores').value;
-    
-    console.log('Primer select -> '+first_select);
-    window.doctor=first_select; 
- }
+function consultarDatos(){
+
+    consultarDoctor();
+    consultarCliente();
+
+}
+
+// funciones combo box Doctor 1(consulta) 2(llenado Option) 3(declaracion variable global Doctor)
 
  function consultarDoctor(){
     $.ajax({
@@ -206,8 +208,6 @@ function fillBook(document){
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
-            console.log(respuesta[0].name);
-            console.log(respuesta[1].name);
             comboBoxDoctor(respuesta);
         }
     });
@@ -227,3 +227,45 @@ function fillBook(document){
         
         
     }
+
+    function fillBook(document){    
+        var first_select = document.getElementById('Doctores').value;
+        
+        console.log('Doctor select -> '+first_select);
+        window.doctor=first_select; 
+     }
+
+//// funciones combo box Client 1(consulta) 2(llenado Option) 3(declaracion variable global Doctor)
+
+function consultarCliente(){
+    $.ajax({
+        url:"http://localhost:8080/api/Client/all",
+        type:"GET",
+        datatype:"JSON",
+        success:function(respuesta){
+            comboBoxCliente(respuesta);
+
+        }
+    });
+}
+    function comboBoxCliente(respuesta){
+        let myOption="<select name=Clientes id=Clientes>";
+                myOption+="<option value="+0+">"+"Seleccione Cliente"+"</option>"
+            for(i=0; i<respuesta.length; i++) {
+                myOption+="<option value="+respuesta[i].idClient+">"+respuesta[i].name+"</option>"
+
+}
+        myOption+="</select>";
+        $("#comboClient").html(myOption);
+        
+    }
+
+    function fillBookCliente(document){    
+        var first_select = document.getElementById('Clientes').value;
+        
+        console.log('Client select -> '+first_select);
+        window.client=first_select; 
+     }
+
+
+

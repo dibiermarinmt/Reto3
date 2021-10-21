@@ -8,7 +8,7 @@
         
     </head>
         
-    <body onload="consultarDoctor()">
+    <body onload="consultarDatos()">
         <h2>Registro de Reservaciones</h2>
 
         <fieldset style="width: 40%">
@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <th>Client:</th>
-                    <td><input type="number" id="client"></td>
+                    <td><div id="comboClient" onclick="fillBookCliente(document)"></div></td>
                 </tr>
                 <tr>
                     <td colspan="2">
