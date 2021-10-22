@@ -7,7 +7,9 @@
         <script src="js/messageFunctions.js"></script>
     </head>
         
-    <body><center>
+
+    <body onload="consultarDatos()"><center>
+
         <h2>Registro de Mensajes</h2>
 
         <fieldset style="width: 40%">
@@ -19,11 +21,11 @@
                 </tr>
                 <tr>
                     <th>Doctor:</th>
-                    <td><input type="number" id="doctor"></td>
+                    <td><div id="comboDoctor" onclick="fillBookDoctor(document)"></div></td>
                 </tr>
                 <tr>
                     <th>Client:</th>
-                    <td><input type="number" id="client"></td>
+                    <td><div id="comboClient" onclick="fillBookCliente(document)"></div></td>
                 </tr>
                 <tr>
                     <td colspan="2">

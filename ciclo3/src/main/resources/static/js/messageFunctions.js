@@ -110,11 +110,21 @@ function consultar(){
 function pintarRespuesta(respuesta){
 
     let myTable="<table border='1'>";
+
+    myTable+="<thead>";
+    myTable+="<TR>";
+    myTable+="<th>"+"Doctor"+"</th>";
+    myTable+="<th>"+"Cliente"+"</th>";
+    myTable+="<th>"+"Mensaje"+"</th>";
+
+    myTable+="</TR>";
+    myTable+="</thead>";
+
     for(i=0; i<respuesta.length; i++) {
         myTable+="<tr>";
+        myTable+="<td>"+respuesta[i].doctor.name+"</td>";
+        myTable+="<td>"+respuesta[i].client.name+"</td>";
         myTable+="<td>"+respuesta[i].messageText+"</td>";
-        myTable+="<td>"+respuesta[i].doctor.id+"</td>";
-        myTable+="<td>"+respuesta[i].client.idClient+"</td>";
         myTable+="<td><button onclick='eliminar("+respuesta[i].idMessage+")'>Borrar</button></td>";
         myTable+="<td><button onclick='cargar("+respuesta[i].idMessage+")'>Cargar</button></td>";
         myTable+="</tr>";
@@ -126,8 +136,8 @@ function pintarRespuesta(respuesta){
 function guardar(){
     let var2 = {
         messageText:$("#messageText").val(),
-        doctor:{"id":$("#doctor").val()},
-        client:{"idClient":$("#client").val()}
+        doctor:{"id":window.doctor},
+        client:{"idClient":window.client}
     };
     $.ajax({
         type:'POST',
@@ -143,7 +153,7 @@ function guardar(){
             consultar();
         },
         error:function(jqXHR, textStatus, errorTrown){
-            window.location.reload();
+            
             console.log("No se guardó");
             alert("No se guardó correctamente");
         }
@@ -155,3 +165,83 @@ function limpiarFormulario(){
     $("#doctor").val("");
     $("#client").val("");
 }
+
+//funcion llenado combo box
+function consultarDatos(){
+
+    consultarDoctor();
+    consultarCliente();
+
+}
+
+//funcion obtener datos doctor
+
+function consultarDoctor(){
+    $.ajax({
+        url:"http://localhost:8080/api/Doctor/all",
+        type:"GET",
+        datatype:"JSON",
+        success:function(respuesta){
+            comboBoxDoctor(respuesta);
+        }
+    });
+}
+
+//se llena el combo box de Doctor
+
+    function comboBoxDoctor(respuesta){
+        let myOption="<select name= Doctores id=Doctores>";
+                myOption+="<option value="+0+">"+"Seleccione Doctor"+"</option>"
+            for(i=0; i<respuesta.length; i++) {
+                myOption+="<option value="+respuesta[i].id+">"+respuesta[i].name+"</option>"
+
+}
+        myOption+="</select>";
+        $("#comboDoctor").html(myOption);
+        
+        
+    }
+
+//se obtiene el id del cliente seleccionado del combo box
+
+    function fillBookDoctor(document){    
+        var first_select = document.getElementById('Doctores').value;
+        
+        console.log('Doctor select -> '+first_select);
+        window.doctor=first_select; 
+     }
+
+
+//funcion consulta datos Clientes
+
+
+function consultarCliente(){
+    $.ajax({
+        url:"http://localhost:8080/api/Client/all",
+        type:"GET",
+        datatype:"JSON",
+        success:function(respuesta){
+            comboBoxCliente(respuesta);
+
+        }
+    });
+}
+//llenar combo box clientes
+    function comboBoxCliente(respuesta){
+        let myOption="<select name=Clientes id=Clientes>";
+                myOption+="<option value="+0+">"+"Seleccione Cliente"+"</option>"
+            for(i=0; i<respuesta.length; i++) {
+                myOption+="<option value="+respuesta[i].idClient+">"+respuesta[i].name+"</option>"
+
+}
+        myOption+="</select>";
+        $("#comboClient").html(myOption);
+        
+    }
+//se obtiene el id del cliente seleccionado del combo box
+    function fillBookCliente(document){    
+        var first_select = document.getElementById('Clientes').value;
+        
+        console.log('Client select -> '+first_select);
+        window.client=first_select; 
+     }

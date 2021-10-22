@@ -145,7 +145,7 @@ function pintarRespuesta(respuesta){
        
         myTable+="<td><button onclick='eliminar("+respuesta[i].idReservation+")'>Borrar</button></td>";
 
-        myTable+="<td><button onclick='cargar("+respuesta[i].idReservation+")'>Cargar</button></td>";
+        myTable+="<td><button onclick='Calificar("+respuesta[i].idReservation+")'>Calificar</button></td>";
         myTable+="</tr>";
     }
     myTable+="</table>";
@@ -234,7 +234,7 @@ function consultarDatos(){
         window.doctor=first_select; 
      }
 
-//// funciones combo box Client 1(consulta) 2(llenado Option) 3(declaracion variable global Doctor)
+//// funciones combo box Client 1(consulta) 2(llenado Option) 3(declaracion variable global Doctor id)
 
 function consultarCliente(){
     $.ajax({
@@ -265,3 +265,64 @@ function consultarCliente(){
         console.log('Client select -> '+first_select);
         window.client=first_select; 
      }
+
+//toma de datos para calificar, se habilita los campos de texto
+
+     function Calificar(idItem){
+        $.ajax({    
+            url : "http://localhost:8080/api/Reservation/"+idItem,
+            type : 'GET',
+            dataType : 'JSON',        
+    
+            success : function(json) {               
+                    console.log(json);
+      
+                      idCarga = idItem;
+              console.log("idCarga es " +idCarga);
+             
+              window.reservation=idCarga;
+              var scoreInput = document.getElementById('score');
+              var messageInput = document.getElementById('message');
+
+                scoreInput.readOnly=false;
+                messageInput.readOnly=false;
+                
+                
+            }
+        });
+    }
+    
+
+//se toman los datos y se envian en el post
+
+    function calificacion(){
+
+        let var2 = {
+            score:$("#score").val(),
+            message:$("#message").val(),
+            reservation:{"idReservation":window.reservation}        
+        };
+        console.log(var2);
+        $.ajax({
+            type:'POST',
+            contentType:"application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(var2),
+            url:"http://localhost:8080/api/Score/save",
+            success:function(respose) {
+                console.log("Se guardó correctamente");
+                var scoreInput = document.getElementById('score');
+              var messageInput = document.getElementById('message');
+                scoreInput.readOnly=true;
+                messageInput.readOnly=true;
+                $("#score").val(""),
+                $("#message").val(""),           
+                consultar();
+            },
+            error:function(jqXHR, textStatus, errorTrown){
+                
+                console.log("No se guardó");
+                alert("No se guardó correctamente");
+            }
+        });
+    }
